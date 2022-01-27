@@ -1,8 +1,4 @@
-﻿using System;
-using System.Threading;
-using MailKit.Security;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
+﻿using MailKit.Security;
 using MimeKit;
 using WebService.ApplicationCore.Interfaces;
 using SmtpClient = MailKit.Net.Smtp.SmtpClient;
@@ -45,7 +41,6 @@ namespace WebService.Infrastructure.Services
                 try
                 {
                     using var client = new SmtpClient();
-                    //client.LocalDomain = _settings["MailKit:MailKitLocalDomain"];
                     SecureSocketOptions secureSocketOptions;
 
                     if (!Enum.TryParse(_settings["MailKit:MailKitSecureSocketOption"],

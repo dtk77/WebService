@@ -8,8 +8,19 @@
         public string Subject { get; set; }
         public string Body { get; set; }
         public string Recipient { get; set; }
-    }
 
+        public MailSendingReportToDb(int id, DateTime date, string result, string subject, string body, string recipient)
+        {
+            Id = id;
+            Date = date;
+            Result = result;
+            Subject = subject;
+            Body = body;
+            Recipient = recipient;
+        }
+
+        public MailSendingReportToDb() {}
+    }
 
 }
 
