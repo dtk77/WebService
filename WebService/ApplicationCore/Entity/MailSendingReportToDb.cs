@@ -1,5 +1,9 @@
 ﻿namespace WebService.ApplicationCore.Entity
 {
+    /// <summary>
+    /// This class generates a report on
+    /// the result of sending emails.
+    /// </summary>
     public class MailSendingReportToDb
     {
         public int Id { get; set; }
