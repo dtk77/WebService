@@ -25,7 +25,7 @@ namespace WebService.Infrastructure.Services
         /// <param name="bodyText"></param>
         /// <param name="retryCount"></param>
         /// <param name="toName"></param>
-        public async Task<bool> Send(string toName, string toEmailAddress, string subject, string bodyHtml, string bodyText, int retryCount = 2)
+        public async Task<Tuple<string,string>> Send(string toName, string toEmailAddress, string subject, string bodyHtml, string bodyText, int retryCount = 2)
         {
             var message = new MimeMessage();
             message.From.Add(new MailboxAddress(_settings["MailKit:MailKitFromName"], _settings["MailKit:MailKitFromAddress"]));
@@ -61,14 +61,15 @@ namespace WebService.Infrastructure.Services
                 catch (Exception exception)
                 {
                     _logger.LogError(0, exception, "MailKit.Send failed attempt {0}", count);
+                    
                     if (retryCount >= 0)
                     {
-                        return false;
+                        return Tuple.Create("Falied", exception.Message);
                     }
                     await Task.Delay(count * 1000);
                 }
             }
-            return true;
+            return Tuple.Create("OK", String.Empty);
         }
     }
 }

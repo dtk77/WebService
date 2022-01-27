@@ -33,19 +33,17 @@ namespace WebService.Controllers
             if (notValidMailsAdressCollection.Any())
                 return BadRequest($"Not valid email adress: {notValidMailsAdressCollection}");
 
-            string statusSending = "Failed";
             foreach (var recipient in recipients)
             {
-                bool resultSending =
+                var resultSending =
                    await _emailSender.Send("", recipient, requestToSendMail.Subject, "", requestToSendMail.Body);
-
-                if (resultSending == true) statusSending = "OK";
 
                 var dto = new MailSendingReportToDb
                 {
                     Id = requestToSendMail.Id,
                     Date = DateTime.Now,
-                    Result = statusSending,
+                    Result = resultSending.Item1,
+                    FailedMessage = resultSending.Item2 == "" ? null : resultSending.Item2,
                     Subject = requestToSendMail.Subject,
                     Body = requestToSendMail.Body,
                     Recipient = recipient
