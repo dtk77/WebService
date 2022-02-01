@@ -4,17 +4,12 @@
     /// This class generates a report on
     /// the result of sending emails.
     /// </summary>
-    public class MailSendingReportToDb
+    public class MailSendingReportToDb : MailForTask
     {
-        public int Id { get; set; }
         public DateTime Date { get; set; }
         public string Result { get; set; }
         public string? FailedMessage { get; set; } = null;
-        public string Subject { get; set; }
-        public string Body { get; set; }
         public string Recipient { get; set; }
-
-       
 
         public MailSendingReportToDb() {}
 
