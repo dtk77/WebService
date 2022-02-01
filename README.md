@@ -1,2 +1,2 @@
 # WebService
-Service for sending emails and logging the result in DB. Test project.
+WebService for sending emails and logging the result to the database. Test project.
