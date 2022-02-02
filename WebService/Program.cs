@@ -2,6 +2,7 @@ using WebService.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using WebService.ApplicationCore.Interfaces;
 using WebService.Infrastructure.Services;
+using WebService;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,6 +15,8 @@ builder.Services.AddControllers();
 builder.Services.AddDbContext<EFDbContext>(opt =>
   opt.UseSqlServer(builder.Configuration.GetConnectionString("MailSendingReport")));
 
+builder.Services.Configure<SendSettings>(
+    builder.Configuration.GetSection("MailKit"));
 
 builder.Services.AddTransient<IEmailSender, EmailSender>();
 builder.Services.AddScoped(typeof(IAsyncRepository<>), typeof(EFRepository<>));
@@ -27,7 +30,7 @@ using (var scope = app.Services.CreateScope())
     var services = scope.ServiceProvider;
 
     var context = services.GetRequiredService<EFDbContext>();
-    context.Database.EnsureCreated();
+    //context.Database.EnsureCreated();
 }
 
 app.UseHttpsRedirection();
